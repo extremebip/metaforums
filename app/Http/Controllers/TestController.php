@@ -16,17 +16,8 @@ class TestController extends Controller
 
     public function index()
     {
-        // Test Update
-        // $user = $this->testRepository->FindByID(2);
-        // $user->username = 'Tinkerer';
-        // return $this->testRepository->InsertUpdate($user);
-
-        // Test Delete
-        // $user = $this->testRepository->FindByID(3);
-        // return $this->testRepository->Delete($user->id);
-
         // Test get all
-        // return $this->testService->GetAllUser();
+        // return $this->testService->GetUsers();
 
         // Test Get by ID
         // return $this->testService->GetUser(2);
@@ -48,7 +39,18 @@ class TestController extends Controller
         // return $this->testService->UpdateUserProfile($data);
 
         // Test Delete
-        $data = array();
-        $data['username'] = 
+        // $data = array();
+        // $data['username'] = 'Mordred';
+        // $user = $this->testService->GetUserByUsername($data['username']);
+        // return $this->testService->DeleteUser($user->id);
+
+        // Test Get deleted
+        // return $this->testService->GetUsersWithDeleted();
+        // return $this->testService->GetUserWithDeleted(5);
+
+        // Test Restore
+        // $deleted_user = $this->testService->GetUserWithDeleted(4);
+        // $user = $this->testService->RestoreUser($deleted_user->id);
+        // var_dump($user);
     }
 }
