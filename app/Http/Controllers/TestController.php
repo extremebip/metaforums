@@ -52,5 +52,7 @@ class TestController extends Controller
         // $deleted_user = $this->testService->GetUserWithDeleted(4);
         // $user = $this->testService->RestoreUser($deleted_user->id);
         // var_dump($user);
+
+        return view('test');
     }
 }
