@@ -16,7 +16,19 @@ class AppServiceProvider extends ServiceProvider
      * @var array
      */
     private $repositories = [
-        'TestRepository'
+        'TestRepository',
+        'CategoryRepository',
+        'SubCategoryRepository',
+        'RoleRepository',
+        'ModeratingTypeRepository',
+        'UserRepository',
+        'ThreadRepository',
+        'PostRepository',
+        'PostFavoriteRepository',
+        'PostReplyRepository',
+        'ModeratorRepository',
+        'ReportAbuseRepository',
+        'ModeratingRepository'
     ];
 
     /**
