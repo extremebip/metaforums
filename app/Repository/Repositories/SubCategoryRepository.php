@@ -11,4 +11,8 @@ class SubCategoryRepository extends BaseRepository implements ISubCategoryReposi
     public function __construct() {
         parent::__construct(new SubCategory());
     }
+
+    public function FindAllSubCategoryByCategory($category_id){
+        return SubCategory::where('category_id', $category_id)->get();
+    }
 }

@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Service\Contracts\ITestService;
 use App\Model\DB\User;
+use App\Model\DB\Category;
+use App\Model\ViewModel\Test\TestViewModel;
+use App\Model\Requests\Test\CategoryPostRequest;
+use App\Model\Requests\Test\SubCategoryPostRequest;
 
 class TestController extends Controller
 {
@@ -53,6 +56,29 @@ class TestController extends Controller
         // $user = $this->testService->RestoreUser($deleted_user->id);
         // var_dump($user);
 
-        return view('test');
+        $categories = $this->testService->GetCategories();
+        $categories_dropdown = $categories->toDropdown('id', 'name');
+        return view('test')->with(['categories' => $categories, 'categories_dropdown' => $categories_dropdown]);
+    }
+
+    public function saveCategory(CategoryPostRequest $request)
+    {
+        $data = $request->validatedIntoDataCollection();
+        $new_category = $this->testService->SaveCategory($data['category']);
+        return redirect()->back();
+    }
+
+    public function getSubCategories($category)
+    {
+        $subCategories = $this->testService->GetSubCategoriesByCategory($category);
+        $json = array("data" => $subCategories);
+        return response()->json($subCategories);
+    }
+
+    public function saveSubCategory(SubCategoryPostRequest $request)
+    {
+        $data = $request->validatedIntoDataCollection();
+        $new_subcategory = $this->testService->SaveSubCategory($data['subcategory']);
+        return redirect()->back();
     }
 }

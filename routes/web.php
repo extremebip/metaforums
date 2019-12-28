@@ -15,4 +15,10 @@
 //     return view('welcome');
 // });
 
-Route::get('/', 'TestController@index');
+Route::prefix('test')->group(function ()
+{
+    Route::get('/','TestController@index');
+    Route::post('category', 'TestController@saveCategory');
+    Route::post('categories/{category}/sub-categories', 'TestController@getSubCategories')->name('getSubCategories');
+    Route::post('sub-category', 'TestController@saveSubCategory');
+});

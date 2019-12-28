@@ -16,4 +16,10 @@ interface ITestService
     public function GetUsersWithDeleted();
     public function GetUserWithDeleted($id);
     public function RestoreUser($id);
+
+    public function GetCategories();
+    public function SaveCategory($data);
+
+    public function GetSubCategoriesByCategory($category_id);
+    public function SaveSubCategory($data);
 }
