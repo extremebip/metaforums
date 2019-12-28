@@ -3,10 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-
-use App\Repository\Contracts\ITestRepository;
-
-use App\Repository\Repositories\TestRepository;
+use Illuminate\Support\Collection;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -67,6 +64,21 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        Collection::macro('toDropdown', function ($value_key, $text_key)
+        {
+            return $this->mapWithKeys(function ($item) use ($value_key, $text_key)
+            {
+                return [$item[$value_key] => $item[$text_key]];
+            });
+        });
+
+        Collection::macro('withoutTimestamp', function ()
+        {
+            return $this->map(function ($model)
+            {
+                $result = collect($model->toArray());
+                return $result->except(['created_at', 'updated_at', 'deleted_at']);
+            });
+        });
     }
 }
