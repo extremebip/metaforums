@@ -3,6 +3,9 @@
 @section('title', 'Test')
 
 @section('content')
+    @auth
+        Hello User
+    @endauth
     <div class="row">
         <h2>Category</h2>
     </div>

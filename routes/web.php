@@ -22,3 +22,6 @@ Route::prefix('test')->group(function ()
     Route::post('categories/{category}/sub-categories', 'TestController@getSubCategories')->name('getSubCategories');
     Route::post('sub-category', 'TestController@saveSubCategory');
 });
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

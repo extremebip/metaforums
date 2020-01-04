@@ -34,7 +34,8 @@ class AppServiceProvider extends ServiceProvider
      * @var array
      */
     private $services = [
-        'TestService'
+        'TestService',
+        'AuthService'
     ];
 
     /**
