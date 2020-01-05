@@ -27,8 +27,8 @@
             </div>
 
             @if (Route::has('password.request'))
-                <div class="form-group text-center text-dark">
-                    <a href="{{ route('password.request') }}" type="button">Forgot your password?</a>
+                <div class="form-group text-center">
+                    <a href="{{ route('password.request') }}" type="button" class="text-dark">Forgot your password?</a>
                 </div>
             @endif
         {{ Form::close() }}

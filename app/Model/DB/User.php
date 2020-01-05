@@ -2,6 +2,7 @@
 
 namespace App\Model\DB;
 
+// use App\Model\Notifications\CustomResetPassword;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -40,4 +41,15 @@ class User extends Authenticatable
         'last_update_username' => 'datetime',
         'show_email' => 'boolean'
     ];
+
+    /**
+     * Send the password reset notification.
+     *
+     * @param  string  $token
+     * @return void
+     */
+    // public function sendPasswordResetNotification($token)
+    // {
+    //     $this->notify(new CustomResetPassword($token));
+    // }
 }

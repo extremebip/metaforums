@@ -27,4 +27,21 @@ class ResetPasswordController extends Controller
      * @var string
      */
     protected $redirectTo = RouteServiceProvider::HOME;
+
+    /**
+     * Get the password reset validation error messages.
+     *
+     * @return array
+     */
+    protected function validationErrorMessages()
+    {
+        return [
+            'email.required' => 'E-mail must not be empty',
+            'email.email' => 'Invalid e-mail format',
+            
+            'password.required' => 'Password must not be empty',
+            'password.min' => 'Password must be at least 8 characters',
+            'password.confirmed' => 'Please correctly confirm the password'
+        ];
+    }
 }
