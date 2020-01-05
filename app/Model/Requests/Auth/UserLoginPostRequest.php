@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Model\Requests\Login;
+namespace App\Model\Requests\Auth;
 
 use App\Model\Requests\PostRequest;
 
