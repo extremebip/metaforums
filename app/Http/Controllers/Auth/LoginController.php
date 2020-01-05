@@ -101,7 +101,7 @@ class LoginController extends Controller
     /**
      * Handle a login request to the application.
      *
-     * @param  \App\Model\Requests\Login\UserLoginPostRequest  $request
+     * @param  \App\Model\Requests\Auth\UserLoginPostRequest  $request
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|\Illuminate\Http\JsonResponse
      *
      * @throws \Illuminate\Validation\ValidationException
