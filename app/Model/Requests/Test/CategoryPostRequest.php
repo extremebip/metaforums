@@ -7,6 +7,13 @@ use App\Model\Requests\PostRequest;
 class CategoryPostRequest extends PostRequest
 {
     /**
+     * The key to be used for the view error bag.
+     *
+     * @var string
+     */
+    protected $errorBag = 'category';
+
+    /**
      * Determine if the user is authorized to make this request.
      *
      * @return bool
@@ -24,8 +31,8 @@ class CategoryPostRequest extends PostRequest
     public function rules()
     {
         return [
-            'category-id' => 'required',
-            'category-name' => 'required|max:20'
+            'id' => 'required',
+            'name' => 'required|max:20'
         ];
     }
 
@@ -37,8 +44,8 @@ class CategoryPostRequest extends PostRequest
     public function messages()
     {
         return [
-            'category-name.required' => 'Category name must not be empty',
-            'category-name.max' => 'Category name must not exceed :max characters'
+            'name.required' => 'Category name must not be empty',
+            'name.max' => 'Category name must not exceed :max characters'
         ];
     }
 }

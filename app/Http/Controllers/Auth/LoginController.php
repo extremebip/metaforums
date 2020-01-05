@@ -118,7 +118,7 @@ class LoginController extends Controller
             return $this->sendLockoutResponse($request);
         }
 
-        $data = $request->validatedIntoDataCollection()['user'];
+        $data = $request->validatedIntoCollection();
         $this->checkWith($data['email']);
 
         $user = $this->authService->GetUserByEmailOrUsername($data['email']);
@@ -154,7 +154,7 @@ class LoginController extends Controller
      */
     protected function credentials(Request $request)
     {
-        $user = $request->validatedIntoDataCollection()['user'];
+        $user = $request->validatedIntoCollection();
         return [
             $this->checkTo => $user['email'],
             'password' => $user['password']
@@ -175,10 +175,10 @@ class LoginController extends Controller
         $message = [];
 
         if ($type == 'password'){
-            $message = ['user-password' => [$this->messages[$type]]];
+            $message = ['password' => [$this->messages[$type]]];
         }
         else {
-            $message = ['user-email' => [$this->messages[$type]]];
+            $message = ['email' => [$this->messages[$type]]];
         }
 
         throw ValidationException::withMessages($message);

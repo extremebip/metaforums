@@ -11,26 +11,36 @@ class PostRequest extends FormRequest
      * 
      * @return array
      */
-    public function validatedIntoDataArray()
-    {
-        $validated = $this->validated();
-        $data = array();
-        foreach ($validated as $input_name => $value) {
-            $keys = explode('-', $input_name);
-            $new_key = implode('.', $keys);
+    // public function validatedIntoDataArray()
+    // {
+    //     $validated = $this->validated();
+    //     $data = array();
+    //     foreach ($validated as $input_name => $value) {
+    //         $keys = explode('-', $input_name);
+    //         $new_key = implode('.', $keys);
 
-            data_set($data, $new_key, $value);
-        }
-        return $data;
-    }
+    //         data_set($data, $new_key, $value);
+    //     }
+    //     return $data;
+    // }
 
     /**
      * Return validated form data into collection
      * 
      * @return \Illuminate\Support\Collection
      */
-    public function validatedIntoDataCollection()
+    // public function validatedIntoDataCollection()
+    // {
+    //     return collect($this->validatedIntoDataArray());
+    // }
+
+    /**
+     * Return validated form data into collection
+     * 
+     * @return \Illuminate\Support\Collection
+     */
+    public function validatedIntoCollection()
     {
-        return collect($this->validatedIntoDataArray());
+        return collect($this->validated());
     }
 }

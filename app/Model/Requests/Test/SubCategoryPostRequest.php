@@ -7,6 +7,13 @@ use App\Model\Requests\PostRequest;
 class SubCategoryPostRequest extends PostRequest
 {
     /**
+     * The key to be used for the view error bag.
+     *
+     * @var string
+     */
+    protected $errorBag = 'sub_category';
+
+    /**
      * Determine if the user is authorized to make this request.
      *
      * @return bool
@@ -24,9 +31,9 @@ class SubCategoryPostRequest extends PostRequest
     public function rules()
     {
         return [
-            'subcategory-id' => 'required',
-            'subcategory-category_id' => 'required',
-            'subcategory-name' => 'required|max:20'
+            'id' => 'required',
+            'category_id' => 'required',
+            'name' => 'required|max:20'
         ];
     }
 
@@ -38,8 +45,8 @@ class SubCategoryPostRequest extends PostRequest
     public function messages()
     {
         return [
-            'subcategory-name.required' => 'SubCategory name must not be empty',
-            'subcategory-name.max' => 'SubCategory name must not exceed :max characters'
+            'name.required' => 'SubCategory name must not be empty',
+            'name.max' => 'SubCategory name must not exceed :max characters'
         ];
     }
 }

@@ -6,16 +6,16 @@
         <h1 class="text-center mb-3">Metaforum</h1>
         {{ Form::open(['route' => 'login']) }}
             <div class="form-group">
-                {{ Form::text('user-email', null, ['class' => 'form-control rounded-pill '.($errors->has('user-email') ? 'is-invalid' : ''), 'placeholder' => 'Username or E-Mail']) }}
-                @error('user-email')
+                {{ Form::text('email', null, ['class' => 'form-control rounded-pill '.($errors->has('email') ? 'is-invalid' : ''), 'placeholder' => 'Username or E-Mail']) }}
+                @error('email')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>
                 @enderror
             </div>
             <div class="form-group">
-                {{ Form::password('user-password', ['class' => 'form-control rounded-pill '.($errors->has('user-password') ? 'is-invalid' : ''), 'placeholder' => 'Password']) }}
-                @error('user-password')
+                {{ Form::password('password', ['class' => 'form-control rounded-pill '.($errors->has('password') ? 'is-invalid' : ''), 'placeholder' => 'Password']) }}
+                @error('password')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>

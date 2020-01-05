@@ -24,8 +24,8 @@ class UserLoginPostRequest extends PostRequest
     public function rules()
     {
         return [
-            'user-email' => 'required|string|min:6',
-            'user-password' => 'required|string|min:8',
+            'email' => 'required|string|min:6',
+            'password' => 'required|string|min:8',
         ];
     }
 
@@ -37,10 +37,10 @@ class UserLoginPostRequest extends PostRequest
     public function messages()
     {
         return [
-            'user-email.required' => 'Username or E-Mail must not be empty',
-            'user-email.min' => 'Username or E-Mail must be at least 6 characters',
-            'user-password.required' => 'Password must not be empty',
-            'user-password.min' => 'Password must be at least 8 characters'
+            'email.required' => 'Username or E-Mail must not be empty',
+            'email.min' => 'Username or E-Mail must be at least 6 characters',
+            'password.required' => 'Password must not be empty',
+            'password.min' => 'Password must be at least 8 characters'
         ];
     }
 }

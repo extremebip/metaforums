@@ -63,8 +63,8 @@ class TestController extends Controller
 
     public function saveCategory(CategoryPostRequest $request)
     {
-        $data = $request->validatedIntoDataCollection();
-        $new_category = $this->testService->SaveCategory($data['category']);
+        $data = $request->validatedIntoCollection();
+        $new_category = $this->testService->SaveCategory($data);
         return redirect()->back();
     }
 
@@ -77,8 +77,8 @@ class TestController extends Controller
 
     public function saveSubCategory(SubCategoryPostRequest $request)
     {
-        $data = $request->validatedIntoDataCollection();
-        $new_subcategory = $this->testService->SaveSubCategory($data['subcategory']);
+        $data = $request->validatedIntoCollection();
+        $new_subcategory = $this->testService->SaveSubCategory($data);
         return redirect()->back();
     }
 }

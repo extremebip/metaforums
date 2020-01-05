@@ -14,10 +14,10 @@
     </div>
     <div class="row">
         {{ Form::open(['action' => 'TestController@saveCategory']) }}
-            {{ Form::hidden('category-id', 0, ['id' => 'category-id']) }}
+            {{ Form::hidden('id', 0, ['id' => 'category-id']) }}
             <div class="form-group">
-                {{ Form::text('category-name', null, ['class' => 'form-control '.($errors->has('category-name') ? 'is-invalid' : ''), 'id' => 'category-name']) }}
-                @error('category-name')
+                {{ Form::text('name', null, ['class' => 'form-control '.($errors->category->has('name') ? 'is-invalid' : ''), 'id' => 'category-name']) }}
+                @error('name', 'category')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>
@@ -57,12 +57,12 @@
     <div class="row">
         {{ Form::open(['action' => 'TestController@saveSubCategory']) }}
         <div class="form-group">
-            {{ Form::select('subcategory-category_id', $categories_dropdown, null, ['class' => 'form-control', 'id' => 'subcategory-category_id']) }}
+            {{ Form::select('category_id', $categories_dropdown, null, ['class' => 'form-control', 'id' => 'subcategory-category_id']) }}
         </div>
-        {{ Form::hidden('subcategory-id', 0, ['id' => 'subcategory-id']) }}
+        {{ Form::hidden('id', 0, ['id' => 'subcategory-id']) }}
         <div class="form-group">
-            {{ Form::text('subcategory-name', null, ['class' => 'form-control '.($errors->has('subcategory-name') ? 'is-invalid' : ''), 'id' => 'subcategory-name']) }}
-            @error('subcategory-name')
+            {{ Form::text('name', null, ['class' => 'form-control '.($errors->sub_category->has('name') ? 'is-invalid' : ''), 'id' => 'subcategory-name']) }}
+            @error('name', 'sub_category')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
                 </span>
