@@ -24,4 +24,9 @@ Route::prefix('test')->group(function ()
 });
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/', 'HomeController@index')->name('home');
+Route::get('/subcategory/{subCategoryId}/threads', 'HomeController@threads')->name('getThread');
+Route::middleware(['auth'])->group(function ()
+{
+    
+});

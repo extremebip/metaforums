@@ -11,4 +11,8 @@ class ThreadRepository extends BaseRepository implements IThreadRepository
     public function __construct() {
         parent::__construct(new Thread());
     }
+
+    public function FindAllBySubCategory($subCategoryId) {
+        return Thread::where('subcategory_id', '=', $subCategoryId)->get();
+    }
 }

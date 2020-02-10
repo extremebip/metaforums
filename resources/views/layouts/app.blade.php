@@ -8,10 +8,17 @@
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    @if (Route::currentRouteName() == 'home')
+        <link href="{{ asset('css/sidebar.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/home.css') }}" rel="stylesheet">
+    @endif
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.20/r-2.2.3/datatables.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm fixed-top p-0">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
@@ -27,18 +34,18 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('login') }}">LOG IN</a>
                             </li>                        
-                        @elseif (Route::currentRouteName() == 'login' || Route::currentRouteName() == 'password.request')
+                        @elseif (Route::currentRouteName() == 'home')
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('register') }}">SIGN UP</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('login') }}">LOG IN</a>
                             </li>
                         @else
                             @guest
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('register') }}">SIGN UP</a>
                                 </li> 
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">LOG IN</a>
-                                </li>
                             @endguest
                         @endif
                     </ul>
@@ -79,9 +86,14 @@
             </div>
         </nav>
 
-        <main class="py-4">
-            @yield('content')
-        </main>
+        @isset ($isHome)
+            @include('shared.sidebar')
+        @else
+            <main class="py-4">
+                @yield('content')
+            </main>
+        @endisset
+        
     </div>
     <script src="{{ asset('js/app.js') }}"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.20/r-2.2.3/datatables.min.js"></script>
@@ -90,5 +102,6 @@
             headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}
         });
     </script>
+    @stack('scripts')
 </body>
 </html>
