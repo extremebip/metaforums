@@ -12,8 +12,4 @@ class Post extends Model
     protected $fillable = [
         'user_id', 'content', 'is_thread'
     ];
-
-    protected $casts = [
-        'is_thread' => 'boolean'
-    ];
 }

@@ -17,7 +17,6 @@ class CreatePostsTable extends Migration
             $table->increments('id');
             $table->integer('user_id');
             $table->mediumText('content');
-            $table->boolean('is_thread')->default(false);
             $table->timestamps();
             $table->softDeletes();
         });
