@@ -8,8 +8,8 @@ interface IRepository
 {
     public function FindAll();
     public function FindAllWithDeleted();
-    public function FindByID($id);
-    public function FindByIDWithDeleted($id);
+    public function Find($id);
+    public function FindWithDeleted($id);
     public function InsertUpdate(Model $model);
     public function Delete($id);
     public function RollbackDelete($id);

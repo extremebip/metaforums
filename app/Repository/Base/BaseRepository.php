@@ -22,12 +22,12 @@ class BaseRepository implements IRepository
         return $this->model::withTrashed()->get();
     }
 
-    public function FindByID($id)
+    public function Find($id)
     {
         return $this->model::find($id);
     }
 
-    public function FindByIDWithDeleted($id)
+    public function FindWithDeleted($id)
     {
         return $this->model::withTrashed()->find($id);
     }
