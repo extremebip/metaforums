@@ -37,4 +37,9 @@ class AuthService implements IAuthService
         
         return $this->userRepository->InsertUpdate($user);
     }
+
+    public function GetUserByID($id)
+    {
+        return $this->userRepository->Find($id);
+    }
 }

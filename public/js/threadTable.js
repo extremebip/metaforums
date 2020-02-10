@@ -2,24 +2,36 @@
     $.fn.ThreadTable = function (options) {
         var thisTable = this;
 
-        var thead = `
-        <thead>
-            <tr>
-                <th colspan="5" style="border-top:none;">
-                    <button class="btn btn-outline-dark pull-right">
-                    <i class="fa fa-edit"></i> Create Thread
-                    </button>
-                </th>
-            </tr>
-        </thead>
-        `;
+        getThead = (showCreate, canCreate) => {
+            var templateThead = `
+                <thead>
+                    <tr>
+                        <th colspan="5" style="border-top:none;">
+                            <button class="btn btn-outline-dark pull-right" {canCreate}>
+                            <i class="fa fa-edit"></i> Create Thread
+                            </button>
+                        </th>
+                    </tr>
+                </thead>
+            `;
+
+            if (!showCreate)
+                return "";
+            else if (!canCreate)
+                return templateThead.replace("{canCreate}", "disabled");
+            else
+                return templateThead.replace("{canCreate}", "");
+        };
 
         var defaultObj = {
             name: 'Thread Table',
             url: '/subcategory/{subCategoryId}/threads',
+            showCreate: true,
+            canCreate: true,
             autoRefresh: false,
             refreshTime: 1000,
             loadThreads: function () {
+                thead = getThead(this.showCreate, this.canCreate);
                 thisTable.html(thead + `
                     <tbody><tr height="200" class="text-center"><td colspan="5" class="align-middle">Loading...</td></tr></tbody>
                 `);
@@ -35,7 +47,10 @@
                 $.ajax({
                     method: 'GET',
                     url: this.url,
+                    showCreate: this.showCreate,
+                    canCreate: this.canCreate,
                     success: function (data) {
+                        var thead = getThead(this.showCreate, this.canCreate);
                         if (data.threads != null && data.threads.length > 0) {
                             var content = thead + '<tbody>';
                             data.threads.forEach((item) => {
@@ -48,7 +63,7 @@
                                     <i class="fa fa-eye"></i> ${item.views} 
                                     <i class="fa fa-comments"></i> ${item.comments}
                                     </td>
-                                    <td>${item.lastUpdate}</td>
+                                    <td>${item.lastReply}</td>
                                 </tr>
                                 `;
                             });

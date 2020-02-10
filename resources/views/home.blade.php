@@ -19,6 +19,8 @@
         var getThreadUrl = "{{ route('getThread', 'default') }}";
         var threadTable = $('#thread-table').ThreadTable({
             url: getThreadUrl.replace('default', '{{$subCategories[0]['id']}}'),
+            showCreate: {{ ($showCreate) ? "true" : "false" }},
+            canCreate: {{ ($canCreate) ? "true" : "false" }},
             // autoRefresh: true,
             // refreshTime: 4000
         });

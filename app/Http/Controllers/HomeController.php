@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Service\Contracts\IHomeService;
 
 class HomeController extends Controller
@@ -27,10 +28,15 @@ class HomeController extends Controller
     {
         $categories = $this->homeService->GetCategories();
         $subCategories = $this->homeService->GetSubCategories();
+        $user = Auth::user();
+        $showCreate = !is_null($user);
+        $canCreate = ($showCreate && !is_null($user->email_verified_at));
         return view('home')->with([
             'isHome' => true,
             'categories' => $categories,
-            'subCategories' => $subCategories
+            'subCategories' => $subCategories,
+            'canCreate' => $canCreate,
+            'showCreate' => $showCreate
         ]);
     }
 
@@ -42,27 +48,9 @@ class HomeController extends Controller
      */
     public function threads($subCategoryId)
     {
-        // $threads = $this->homeService->GetThreadsBySubCategory($subCategoryId);
-        $threads = [
-            [
-                'hot' => true,
-                'title' => 'Fifty Shades of grey',
-                'author' => 'jon',
-                'views' => 125,
-                'comments' => 56,
-                'lastUpdate' => 'Moments Ago'
-            ],
-            [
-                'hot' => false,
-                'title' => 'Fifty Shades of white',
-                'author' => 'bertz',
-                'views' => 100,
-                'comments' => 12,
-                'lastUpdate' => 'One day Ago'
-            ],
-        ];
+        $threads = $this->homeService->GetThreadsBySubCategory($subCategoryId);
         return response()->json([
-            "threads" => $threads
+            "threads" => $threads,
         ]);
     }
 }
