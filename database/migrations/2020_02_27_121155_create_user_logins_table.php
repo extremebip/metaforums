@@ -15,6 +15,7 @@ class CreateUserLoginsTable extends Migration
     {
         Schema::create('user_logins', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('user_id');
             $table->timestamp('time_login')->nullable();
             $table->timestamp('time_logout')->nullable();
             $table->timestamps();

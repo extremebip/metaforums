@@ -25,7 +25,8 @@ class AppServiceProvider extends ServiceProvider
         'PostReplyRepository',
         'ModeratorRepository',
         'ReportAbuseRepository',
-        'ModeratingRepository'
+        'ModeratingRepository',
+        'UserLoginRepository'
     ];
 
     /**
