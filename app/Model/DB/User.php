@@ -19,7 +19,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'username', 'email', 'password', 'avatar_url', 'about',
-        'show_email', 'last_update_username', 'role_id'
+        'show_email', 'last_update_username', 'role_id', 'last_login'
     ];
 
     /**
@@ -39,7 +39,8 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
         'last_update_username' => 'datetime',
-        'show_email' => 'boolean'
+        'show_email' => 'boolean',
+        'last_login' => 'datetime'
     ];
 
     /**
