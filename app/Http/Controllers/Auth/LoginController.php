@@ -143,7 +143,7 @@ class LoginController extends Controller
      */
     protected function authenticated(Request $request, $user)
     {
-        $this->authService->CreateUserLogin($user->id, Carbon::now('+07:00'));
+        $this->authService->CreateUserLogin($user->id, Carbon::now());
     }
 
     /**
@@ -207,7 +207,7 @@ class LoginController extends Controller
     {
         $user = $this->guard()->user();
 
-        $this->authService->SetLogoutTime($user->id, Carbon::now('+07:00'));
+        $this->authService->SetLogoutTime($user->id, Carbon::now());
 
         $this->guard()->logout();
 
