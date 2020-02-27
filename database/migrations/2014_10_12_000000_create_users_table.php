@@ -24,6 +24,7 @@ class CreateUsersTable extends Migration
             $table->boolean('show_email')->default(false);
             $table->timestamp('last_update_username')->useCurrent();
             $table->integer('role_id');
+            $table->timestamp('last_login')->nullable();
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();
