@@ -19,7 +19,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'username', 'email', 'password', 'avatar_url', 'about',
-        'show_email', 'last_update_username', 'role_id', 'last_login'
+        'show_email', 'last_update_username', 'role_id'
     ];
 
     /**
@@ -40,7 +40,6 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'last_update_username' => 'datetime',
         'show_email' => 'boolean',
-        'last_login' => 'datetime'
     ];
 
     /**
