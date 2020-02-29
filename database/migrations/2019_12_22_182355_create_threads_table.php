@@ -19,7 +19,6 @@ class CreateThreadsTable extends Migration
             $table->integer('user_id');
             $table->integer('subcategory_id');
             $table->integer('view_count');
-            $table->mediumText('content');
             $table->timestamps();
             $table->softDeletes();
         });
