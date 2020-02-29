@@ -11,4 +11,8 @@ class PostRepository extends BaseRepository implements IPostRepository
     public function __construct() {
         parent::__construct(new Post());
     }
+
+    public function FindAllByUser($userId){
+        return Post::where('user_id', '=', $userId)->get();
+    }
 }

@@ -25,8 +25,10 @@ Route::prefix('test')->group(function ()
 Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
-Route::get('/subcategory/{subCategoryId}/threads', 'HomeController@threads')->name('getThread');
-Route::middleware(['auth'])->group(function ()
+Route::prefix('/subcategories/{subCategoryId}')->group(function ($subCategoryId)
 {
-    
+    Route::get('threads', 'HomeController@threads')->name('getThread');
+    Route::get('threads/create', 'HomeController@createThread')->name('createThread');
+    Route::post('threads', 'HomeController@saveThread')->name('saveThread');
 });
+Route::get('/thread/{threadId}', 'HomeController@posts')->name('getPost');

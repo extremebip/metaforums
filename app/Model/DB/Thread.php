@@ -10,6 +10,6 @@ class Thread extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        'user_id', 'title', 'subcategory_id'
+        'user_id', 'title', 'subcategory_id', 'view_count'
     ];
 }

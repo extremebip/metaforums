@@ -12,7 +12,7 @@ class PostReplyRepository extends BaseRepository implements IPostReplyRepository
         parent::__construct(new PostReply());
     }
 
-    public function FindAllByThreadOrderByCreatedAt($threadId)
+    public function FindAllByThreadOrderByLatestCreatedAt($threadId)
     {
         return PostReply::where('thread_id', '=', $threadId)->latest()->get();
     }

@@ -3,33 +3,46 @@
 namespace App\Service\Modules;
 
 use Carbon\Carbon;
-use App\Service\Contracts\IHomeService;
+use Illuminate\Support\Facades\DB;
+use App\Helper\Time\TimeConverter;
+use App\Model\DB\Thread;
+use App\Model\DB\Post;
+use App\Model\DB\PostReply;
 use App\Repository\Contracts\ICategoryRepository;
 use App\Repository\Contracts\ISubCategoryRepository;
 use App\Repository\Contracts\IThreadRepository;
+use App\Repository\Contracts\IPostRepository;
 use App\Repository\Contracts\IPostReplyRepository;
 use App\Repository\Contracts\IUserRepository;
+use App\Repository\Contracts\IUserLoginRepository;
+use App\Service\Contracts\IHomeService;
 
 class HomeService implements IHomeService
 {
     private $categoryRepository;
     private $subCategoryRepository;
     private $threadRepository;
+    private $postRepository;
     private $postReplyRepository;
     private $userRepository;
+    private $userLoginRepository;
 
     public function __construct(
         ICategoryRepository $categoryRepository, 
         ISubCategoryRepository $subCategoryRepository,
         IThreadRepository $threadRepository,
+        IPostRepository $postRepository,
         IPostReplyRepository $postReplyRepository,
-        IUserRepository $userRepository)
+        IUserRepository $userRepository,
+        IUserLoginRepository $userLoginRepository)
     {
         $this->categoryRepository = $categoryRepository;
         $this->subCategoryRepository = $subCategoryRepository;
         $this->threadRepository = $threadRepository;
+        $this->postRepository = $postRepository;
         $this->postReplyRepository = $postReplyRepository;
         $this->userRepository = $userRepository;
+        $this->userLoginRepository = $userLoginRepository;
     }
 
     public function GetCategories()
@@ -42,6 +55,10 @@ class HomeService implements IHomeService
         return $this->subCategoryRepository->FindAll()->withoutTimestamp();
     }
 
+    public function GetSubcategoryByID($subCategoryId){
+        return $this->subCategoryRepository->Find($subCategoryId);
+    }
+
     public function GetThreadsBySubCategory($subCategoryId)
     {
         $DBthreads = $this->threadRepository->FindAllBySubCategory($subCategoryId);
@@ -50,35 +67,61 @@ class HomeService implements IHomeService
         return $DBthreads->map(function ($item, $key)
         {
             $user = $this->userRepository->Find($item->user_id);
-            $comments = $this->postReplyRepository->FindAllByThreadOrderByCreatedAt($item->id);
+            $comments = $this->postReplyRepository->FindAllByThreadOrderByLatestCreatedAt($item->id);
             return [
                 'hot' => false,
                 'title' => $item->title,
                 'author' => $user->username,
                 'views' => $item->view_count,
                 'comments' => $comments->count(),
-                'lastReply' => $this->getLastReply($comments->first())
+                'lastReply' => TimeConverter::ToPastString($comments->first()->created_at)
             ];
         });
     }
-    
-    private function getLastReply($latestReply)
-    {
-        $time = $latestReply->created_at->copy();
-        if ($time->tzName != '+07:00')
-            $time->tz = '+07:00';
-        $now = Carbon::now('+07:00');
-        if (($diff = $time->diffInYears($now)) > 0)
-            return "$diff year(s) ago";
-        else if (($diff = $time->diffInMonths($now)) > 0)
-            return "$diff month(s) ago";
-        else if (($diff = $time->diffInDays($now)) > 0)
-            return "$diff day(s) ago";
-        else if (($diff = $time->diffInHours($now)))
-            return "$diff hours ago";
-        else if (($diff = $time->diffInMinutes($now)) > 0)
-            return $diff."m ago";
-        else
-            return "Moments ago";
+
+    public function GetUserForPostComponent($userId){
+        $user = $this->userRepository->Find($userId);
+        $userLogin = $this->userLoginRepository->FindByUserIDOrderByLatestTimeLogin($userId);
+        $postCount = $this->postRepository->FindAllByUser($userId)->count();
+
+        return [
+            'username' => $user->username,
+            'onlineStatus' => is_null($userLogin->logout_time) ? 'Online' : 'Offline',
+            'role' => 'User',
+            'postCount' => $postCount,
+            'lastLogin' => TimeConverter::ToPastString($userLogin->time_login),
+            'moderationType' => 'Active'
+        ];
+    }
+
+    public function SaveThread($data){
+        $thread = new Thread();
+        $thread->fill([
+            'user_id' => $data['user_id'],
+            'title' => $data['title'],
+            'subcategory_id' => $data['subcategory_id'],
+            'view_count' => 0
+        ]);
+
+        $post = new Post();
+        $post->fill([
+            'user_id' => $data['user_id'],
+            'content' => $data['content']
+        ]);
+
+        $postReply = new PostReply();
+
+        return DB::transaction(function () use ($thread, $post, $postReply)
+        {
+            $newThread = $this->threadRepository->InsertUpdate($thread);
+            $newPost = $this->postRepository->InsertUpdate($post);
+
+            $postReply->fill([
+                'thread_id' => $newThread->id,
+                'reply_post_id' => $newPost->id,
+            ]);
+            $this->postReplyRepository->InsertUpdate($postReply);
+            return $newThread;
+        });
     }
 }

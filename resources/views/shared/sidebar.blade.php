@@ -16,17 +16,18 @@
             <ul class="nav flex-column">
               @foreach ($subCategories as $subCategory)
                 <li class="nav-item">
-                  <div class="nav-link subCategory-link category-{{$subCategory['category_id']}}" onclick="getThreads($(this), {{$subCategory['id']}})" style="display:none;">{{$subCategory['name']}}</div>
+                  <div class="nav-link subCategory-link category-{{$subCategory['category_id']}}" onclick="getThreads($(this), {{$subCategory['id']}})" style="display:none;" data-subcategory="{{$subCategory['id']}}">{{$subCategory['name']}}</div>
                 </li>
               @endforeach
             </ul>
           </div>
         </nav>
-        <main role="main" class="col-md-8 ml-sm-auto mt-3" style="margin-left:426px!important">
+        <div role="main" class="col-md-8 ml-sm-auto mt-3" style="margin-left:426px!important">
             @yield('content')
-        </main>
+        </div>
     </div>
 </div>
+@yield('posts')
 
 @prepend('scripts')
 <script>

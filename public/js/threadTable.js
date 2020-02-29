@@ -7,7 +7,7 @@
                 <thead>
                     <tr>
                         <th colspan="5" style="border-top:none;">
-                            <button class="btn btn-outline-dark pull-right" {canCreate}>
+                            <button class="btn btn-outline-dark pull-right" data-toggle="modal" data-target="#threadModal" onclick="createThread()" {canCreate}>
                             <i class="fa fa-edit"></i> Create Thread
                             </button>
                         </th>

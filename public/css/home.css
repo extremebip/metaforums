@@ -9,3 +9,17 @@
     background:#fff; 
     padding-right: 10px; 
 }
+
+#threadModal {
+    padding-left: 0 !important;
+}
+
+#threadModal .modal-dialog{
+    max-width: 100%;
+    margin-bottom: 0;
+    margin-top: 450px;
+}
+
+.modal-backdrop.show {
+    opacity: 0;
+}

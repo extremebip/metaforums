@@ -4,5 +4,5 @@ namespace App\Repository\Contracts;
 
 interface IPostReplyRepository
 {
-    public function FindAllByThreadOrderByCreatedAt($threadId);
+    public function FindAllByThreadOrderByLatestCreatedAt($threadId);
 }
