@@ -103,23 +103,12 @@
         
     </div>
     <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('js/customScript.js') }}"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.20/r-2.2.3/datatables.min.js"></script>
     <script>
         $.ajaxSetup({
             headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}
         });
-
-        function formArrayToObject(formArray) {
-            var returnArray = {};
-            for (var i = 0; i < formArray.length; i++){
-                returnArray[formArray[i]['name']] = formArray[i]['value'];
-            }
-            return returnArray;
-        }
-
-        function getErrorMessageFromResponse(response) {
-            return response.responseJSON.errors;
-        }
     </script>
     @stack('scripts')
 </body>

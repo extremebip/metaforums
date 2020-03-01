@@ -6,6 +6,12 @@ use Carbon\Carbon;
 
 class TimeConverter
 {
+    /**
+     * Turn date time into time past string
+     * 
+     * @param string|\Carbon\Carbon|\DateTime $inputTime
+     * @return string
+     */
     public static function ToPastString($inputTime)
     {
         $time = null;

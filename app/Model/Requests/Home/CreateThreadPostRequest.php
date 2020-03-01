@@ -14,7 +14,7 @@ class CreateThreadPostRequest extends PostRequest
     public function rules()
     {
         return [
-            'title' => 'required|string|max:30',
+            'title' => 'required|string|max:200',
             'content' => 'required|string'
         ];
     }
